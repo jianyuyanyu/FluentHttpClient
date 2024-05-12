@@ -1,4 +1,7 @@
 # Release notes
+## Upcoming release
+* Updated dependencies (which fixes a vulnerability warning inherited from the base HttpClient).
+
 ## 4.3.0
 Released 14 March 2023.
 
