@@ -1,6 +1,7 @@
 # Release notes
 ## Upcoming release
-* Updated dependencies (which fixes a vulnerability warning inherited from the base HttpClient).
+* Added request option to allow streaming the response (thanks to Jericho!).
+* Updated dependencies to fix a vulnerability warning.
 
 ## 4.3.0
 Released 14 March 2023.
