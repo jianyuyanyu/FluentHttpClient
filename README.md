@@ -204,6 +204,29 @@ If you don't want that, you can...
 * [use your own error filter](#custom-filters).
 
 ## Advanced features
+### Request options
+You can customize the request/response flow using a few built-in options.
+
+You can set an option for one request:
+```c#
+IResponse response = await client
+   .GetAsync("items")
+   .WithOptions(ignoreHttpErrors: true);
+```
+
+Or for all requests:
+```c#
+client.SetOptions(ignoreHttpErrors: true);
+```
+
+The available options are:
+
+option                | default | effect
+--------------------- | ------- | ------
+`ignoreHttpErrors`    | `false` | Whether HTTP error responses like HTTP 404 should be ignored (`true`) or raised as exceptions (`false`).
+`ignoreNullArguments` | `true`  | Whether null arguments in the request body and URL query string should be ignored (`true`) or sent as-is (`false`).
+`completeWhen`        | `ResponseContentRead` | When we should stop waiting for the response. For example, setting this to `ResponseHeadersRead` will let you handle the response as soon as the headers are received, before the full response body has been fetched. This only affects getting the `IResponse`; reading the response body (e.g. using a method like `IResponse.As<T>()`) will still wait for the request body to be fetched as usual.
+
 ### Response metadata
 The previous examples parse the response directly, but sometimes you want to peek at the HTTP
 metadata:

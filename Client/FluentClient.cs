@@ -174,12 +174,13 @@ namespace Pathoschild.Http.Client
             // clone request (to avoid issues when resending messages)
             HttpRequestMessage requestMessage = await request.Message.CloneAsync(request.CancellationToken).ConfigureAwait(false);
 
-            // determine if the response should be streamed or not
-            var completionOption = request.Options.CompletionOption ?? HttpCompletionOption.ResponseContentRead;
-
             // dispatch request
             return await this.BaseClient
-                .SendAsync(requestMessage, completionOption, request.CancellationToken)
+                .SendAsync(
+                    request: requestMessage,
+                    completionOption: request.Options.CompleteWhen ?? HttpCompletionOption.ResponseContentRead,
+                    cancellationToken: request.CancellationToken
+                )
                 .ConfigureAwait(false);
         }
 
