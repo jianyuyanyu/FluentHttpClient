@@ -176,7 +176,11 @@ namespace Pathoschild.Http.Client
 
             // dispatch request
             return await this.BaseClient
-                .SendAsync(requestMessage, request.CancellationToken)
+                .SendAsync(
+                    request: requestMessage,
+                    completionOption: request.Options.CompleteWhen ?? HttpCompletionOption.ResponseContentRead,
+                    cancellationToken: request.CancellationToken
+                )
                 .ConfigureAwait(false);
         }
 
