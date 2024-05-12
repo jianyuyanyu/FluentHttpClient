@@ -23,19 +23,36 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- main versions -->
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" Condition="'$(NetCore2OrNewer)' == 'true'" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" Condition="'$(NetCore2OrNewer)' == 'true'" />
-    <PackageReference Include="Moq" Version="4.18.4" Condition="'$(NetCore2OrNewer)' == 'true'" />
-    <PackageReference Include="NUnit" Version="3.13.3" Condition="'$(NetCore2OrNewer)' == 'true'" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
-    <PackageReference Include="RichardSzalay.MockHttp" Version="6.0.0" />
+    <!--
+      main versions
 
-    <!-- legacy versions for older platforms -->
+      We deliberately use old versions of some packages to support our target frameworks:
+
+        package                           | max    | reason
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ | ~~~~~~ | ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Microsoft.AspNetCore.WebUtilities | 2.2.0  | next only supports .NET 8+.
+        NUnit                             | 3.14.0 | next only supports .NET 6+.
+    -->
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" Condition="'$(NetCore2OrNewer)' == 'true'" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Moq" Version="4.20.70" Condition="'$(NetCore2OrNewer)' == 'true'" />
+    <PackageReference Include="NUnit" Version="3.14.0" Condition="'$(NetCore2OrNewer)' == 'true'" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+    <PackageReference Include="RichardSzalay.MockHttp" Version="7.0.0" />
+
+    <!--
+      legacy versions for older platforms
+
+      We deliberately use old versions of some packages to support our target frameworks:
+
+        package | max    | reason
+        ~~~~~~~ | ~~~~~~ | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Moq     | 4.10.1 | next is .NET Standard 2.0+ only.
+        NUnit   | 3.12.0 | next is .NET Standard 2.0+ only.
+    -->
     <PackageReference Include="Microsoft.AspNet.WebUtilities" Version="1.0.0-rc1-final" Condition="'$(NetCore2OrNewer)' == 'false'" />
     <PackageReference Include="Moq" Version="4.10.1" Condition="'$(NetCore2OrNewer)' == 'false'" />
     <PackageReference Include="NUnit" Version="3.12.0" Condition="'$(NetCore2OrNewer)' == 'false'" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" Condition="'$(NetCore2OrNewer)' == 'false'" />
   </ItemGroup>
 
   <ItemGroup>
