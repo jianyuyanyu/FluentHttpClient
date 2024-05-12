@@ -175,15 +175,11 @@ namespace Pathoschild.Http.Client
             HttpRequestMessage requestMessage = await request.Message.CloneAsync(request.CancellationToken).ConfigureAwait(false);
 
             // determine if the response should be streamed or not
-            HttpCompletionOption httpCompletionOption = request.Options.StreamResponse switch
-            {
-                true => HttpCompletionOption.ResponseHeadersRead,
-                false or null => HttpCompletionOption.ResponseContentRead
-            };
+            var completionOption = request.Options.CompletionOption ?? HttpCompletionOption.ResponseContentRead;
 
             // dispatch request
             return await this.BaseClient
-                .SendAsync(requestMessage, httpCompletionOption, request.CancellationToken)
+                .SendAsync(requestMessage, completionOption, request.CancellationToken)
                 .ConfigureAwait(false);
         }
 

@@ -274,14 +274,14 @@ namespace Pathoschild.Http.Client
         /// <param name="request">The request.</param>
         /// <param name="ignoreHttpErrors">Whether HTTP error responses like HTTP 404 should be ignored; else raised as exceptions (or <c>null</c> to leave the option unchanged).</param>
         /// <param name="ignoreNullArguments">Whether to ignore null arguments when the request is dispatched (or <c>null</c> to leave the option unchanged).</param>
-        /// <param name="streamResponse">Whether the response should be streamed or .</param>
-        public static IRequest WithOptions(this IRequest request, bool? ignoreHttpErrors = null, bool? ignoreNullArguments = null, bool? streamResponse = null)
+        /// <param name="completionOption">When the operation should complete (as soon as a response is available or after reasing the whole response content).</param>
+        public static IRequest WithOptions(this IRequest request, bool? ignoreHttpErrors = null, bool? ignoreNullArguments = null, HttpCompletionOption? completionOption = null)
         {
             return request.WithOptions(new RequestOptions
             {
                 IgnoreHttpErrors = ignoreHttpErrors,
                 IgnoreNullArguments = ignoreNullArguments,
-                StreamResponse = streamResponse
+                CompletionOption = completionOption
             });
         }
 

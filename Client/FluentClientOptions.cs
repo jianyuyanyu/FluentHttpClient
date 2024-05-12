@@ -1,3 +1,5 @@
+using System.Net.Http;
+
 namespace Pathoschild.Http.Client
 {
     /// <summary>Options for the fluent client.</summary>
@@ -13,11 +15,10 @@ namespace Pathoschild.Http.Client
         public bool? IgnoreHttpErrors { get; set; }
 
         /// <summary>
-        /// When <c>false</c>, indicates that the request should complete after reading the entire response including the content.
-        /// When <c>true</c>, indicates that the request should complete as soon as a response is available and headers are read (the content is not read yet).
+        /// When the operation should complete (as soon as a response is available or after reasing the whole response content).
         /// Default <c>false</c> if not specified.
         /// </summary>
-        public bool? StreamResponse { get; set; }
+        public HttpCompletionOption? CompletionOption { get; set; }
 
 
         /*********
@@ -30,7 +31,7 @@ namespace Pathoschild.Http.Client
             {
                 IgnoreHttpErrors = this.IgnoreHttpErrors,
                 IgnoreNullArguments = this.IgnoreNullArguments,
-                StreamResponse = this.StreamResponse,
+                CompletionOption = this.CompletionOption,
             };
         }
 
@@ -40,7 +41,7 @@ namespace Pathoschild.Http.Client
         {
             this.IgnoreNullArguments = options?.IgnoreNullArguments ?? this.IgnoreNullArguments;
             this.IgnoreHttpErrors = options?.IgnoreHttpErrors ?? this.IgnoreHttpErrors;
-            this.StreamResponse = options?.StreamResponse ?? this.StreamResponse;
+            this.CompletionOption = options?.CompletionOption ?? this.CompletionOption;
         }
     }
 }
