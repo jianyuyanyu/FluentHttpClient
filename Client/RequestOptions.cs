@@ -15,8 +15,7 @@ namespace Pathoschild.Http.Client
         public bool? IgnoreHttpErrors { get; set; }
 
         /// <summary>
-        /// When <c>false</c>, indicates that the request should complete after reading the entire response including the content.
-        /// When <c>true</c>, indicates that the request should complete as soon as a response is available and headers are read (the content is not read yet).
+        /// When the operation should complete (as soon as a response is available or after reasing the whole response content).
         /// Default <c>HttpCompletionOption.ResponseContentRead</c> if not specified.
         /// </summary>
         public HttpCompletionOption? CompletionOption { get; set; }

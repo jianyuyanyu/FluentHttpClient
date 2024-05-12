@@ -16,7 +16,7 @@ namespace Pathoschild.Http.Client
 
         /// <summary>
         /// When the operation should complete (as soon as a response is available or after reasing the whole response content).
-        /// Default <c>false</c> if not specified.
+        /// Default <c>HttpCompletionOption.ResponseContentRead</c> if not specified.
         /// </summary>
         public HttpCompletionOption? CompletionOption { get; set; }
 
