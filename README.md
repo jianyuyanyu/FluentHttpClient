@@ -21,9 +21,10 @@ methods are available at each step.
   * [Body](#body)
   * [Headers](#headers)
   * [Read the response](#read-the-response)
+  * [Read the response info](#read-the-response-info)
   * [Handle errors](#handle-errors)
 * [Advanced features](#advanced-features)
-  * [Response metadata](#response-metadata)
+  * [Request options](#request-options)
   * [Simple retry policy](#simple-retry-policy)
   * [Cancellation tokens](#cancellation-tokens)
   * [Custom requests](#custom-requests)
@@ -172,6 +173,15 @@ If you don't need the content, you can just await the request:
 await client.PostAsync("items", new Item(…));
 ```
 
+### Read the response info
+You can also read the HTTP response info before parsing the body:
+
+```c#
+IResponse response = await client.GetAsync("items");
+if (response.IsSuccessStatusCode || response.Status == HttpStatusCode.Found)
+   return response.AsArray<Item>();
+```
+
 ### Handle errors
 By default the client will throw `ApiException` if the server returns an error code:
 ```c#
@@ -226,16 +236,6 @@ option                | default | effect
 `ignoreHttpErrors`    | `false` | Whether HTTP error responses like HTTP 404 should be ignored (`true`) or raised as exceptions (`false`).
 `ignoreNullArguments` | `true`  | Whether null arguments in the request body and URL query string should be ignored (`true`) or sent as-is (`false`).
 `completeWhen`        | `ResponseContentRead` | When we should stop waiting for the response. For example, setting this to `ResponseHeadersRead` will let you handle the response as soon as the headers are received, before the full response body has been fetched. This only affects getting the `IResponse`; reading the response body (e.g. using a method like `IResponse.As<T>()`) will still wait for the request body to be fetched as usual.
-
-### Response metadata
-The previous examples parse the response directly, but sometimes you want to peek at the HTTP
-metadata:
-
-```c#
-IResponse response = await client.GetAsync("messages/latest");
-if (response.IsSuccessStatusCode || response.Status == HttpStatusCode.Found)
-   return response.AsArray<T>();
-```
 
 ### Simple retry policy
 The client won't retry failed requests by default, but that's easy to configure:
