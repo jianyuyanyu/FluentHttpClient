@@ -189,14 +189,16 @@ namespace Pathoschild.Http.Client
 
         /// <summary>Set default options for all requests.</summary>
         /// <param name="client">The client.</param>
-        /// <param name="ignoreHttpErrors">Whether HTTP error responses like HTTP 404 should be ignored; else raised as exceptions (or <c>null</c> to leave the option unchanged).</param>
-        /// <param name="ignoreNullArguments">Whether to ignore null arguments when the request is dispatched (or <c>null</c> to leave the option unchanged).</param>
-        public static IClient SetOptions(this IClient client, bool? ignoreHttpErrors = null, bool? ignoreNullArguments = null)
+        /// <param name="ignoreHttpErrors">Whether HTTP error responses like HTTP 404 should be ignored (<c>true</c>) or raised as exceptions (<c>false</c>). Default <c>false</c>.</param>
+        /// <param name="ignoreNullArguments">Whether null arguments in the request body and URL query string should be ignored (<c>true</c>) or sent as-is (<c>false</c>). Default <c>true</c>.</param>
+        /// <param name="completeWhen">When we should stop waiting for the response. For example, setting this to <see cref="HttpCompletionOption.ResponseHeadersRead"/> will let you handle the response as soon as the headers are received, before the full response body has been fetched. This only affects getting the <see cref="IResponse"/>; reading the response body (e.g. using a method like <see cref="IResponse.As{T}"/>) will still wait for the request body to be fetched as usual.</param>
+        public static IClient SetOptions(this IClient client, bool? ignoreHttpErrors = null, bool? ignoreNullArguments = null, HttpCompletionOption? completeWhen = null)
         {
             return client.SetOptions(new FluentClientOptions
             {
                 IgnoreHttpErrors = ignoreHttpErrors,
-                IgnoreNullArguments = ignoreNullArguments
+                IgnoreNullArguments = ignoreNullArguments,
+                CompleteWhen = completeWhen
             });
         }
 
@@ -272,14 +274,16 @@ namespace Pathoschild.Http.Client
 
         /// <summary>Set options for this request.</summary>
         /// <param name="request">The request.</param>
-        /// <param name="ignoreHttpErrors">Whether HTTP error responses like HTTP 404 should be ignored; else raised as exceptions (or <c>null</c> to leave the option unchanged).</param>
-        /// <param name="ignoreNullArguments">Whether to ignore null arguments when the request is dispatched (or <c>null</c> to leave the option unchanged).</param>
-        public static IRequest WithOptions(this IRequest request, bool? ignoreHttpErrors = null, bool? ignoreNullArguments = null)
+        /// <param name="ignoreHttpErrors">Whether HTTP error responses like HTTP 404 should be ignored (<c>true</c>) or raised as exceptions (<c>false</c>). Default <c>false</c>.</param>
+        /// <param name="ignoreNullArguments">Whether null arguments in the request body and URL query string should be ignored (<c>true</c>) or sent as-is (<c>false</c>). Default <c>true</c>.</param>
+        /// <param name="completeWhen">When we should stop waiting for the response. For example, setting this to <see cref="HttpCompletionOption.ResponseHeadersRead"/> will let you handle the response as soon as the headers are received, before the full response body has been fetched. This only affects getting the <see cref="IResponse"/>; reading the response body (e.g. using a method like <see cref="IResponse.As{T}"/>) will still wait for the request body to be fetched as usual.</param>
+        public static IRequest WithOptions(this IRequest request, bool? ignoreHttpErrors = null, bool? ignoreNullArguments = null, HttpCompletionOption? completeWhen = null)
         {
             return request.WithOptions(new RequestOptions
             {
                 IgnoreHttpErrors = ignoreHttpErrors,
-                IgnoreNullArguments = ignoreNullArguments
+                IgnoreNullArguments = ignoreNullArguments,
+                CompleteWhen = completeWhen
             });
         }
 

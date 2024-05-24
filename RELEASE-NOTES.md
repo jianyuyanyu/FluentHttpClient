@@ -1,4 +1,10 @@
 # Release notes
+## 4.4.0
+Released 24 May 2024.
+
+* Added support for response streaming using the [`completeWhen` request option](README.md#request-options) (thanks to Jericho!).
+* Updated dependencies to fix a vulnerability warning.
+
 ## 4.3.0
 Released 14 March 2023.
 
