@@ -95,7 +95,7 @@ namespace Pathoschild.Http.Client.Internal
 #endif
                 )
                 .ConfigureAwait(false);
-            stream.Position = 0;
+            if (stream.CanSeek) stream.Position = 0;
             return stream;
         }
 
