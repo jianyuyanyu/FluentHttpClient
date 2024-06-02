@@ -72,9 +72,6 @@ namespace Pathoschild.Http.Tests.Integration
             Assert.IsNotNull(result);
         }
 
-        /*********
-        ** Unit tests
-        *********/
         [Test(Description = "The client can fetch a resource from the English Wikipedia's API.")]
         public async Task EnglishWikipedia()
         {
