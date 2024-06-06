@@ -1,9 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq.Expressions;
 #if NET452
 using System.Net;
 #endif
+using System.Net.Http;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Pathoschild.Http.Client;
@@ -53,6 +55,22 @@ namespace Pathoschild.Http.Tests.Integration
         /*********
         ** Unit tests
         *********/
+        [Test(Description = "The client can stream a large file.")]
+        public async Task StreamLargeFile()
+        {
+            // arrange
+            IClient client = this.ConstructClient("https://proof.ovh.net/");
+
+            // act
+            Stream result = await client
+                .GetAsync("files/1Mb.dat") // Files of various sizes are available for testing purposes. See this article: https://www.buildsometech.com/download-test-files/#Download_Test_Files_100GB_50GB_10GB_5GB_4GB_2GB_1GB_High-Speed
+                .WithOptions(completeWhen: HttpCompletionOption.ResponseHeadersRead)
+                .AsStream();
+
+            // assert
+            Assert.IsNotNull(result);
+        }
+
         [Test(Description = "The client can fetch a resource from the English Wikipedia's API.")]
         public async Task EnglishWikipedia()
         {
