@@ -1,4 +1,9 @@
 # Release notes
+## 4.4.1
+Released 05 June 2024.
+
+* Fixed cases where calling `AsStream()` would fail with an error (thanks to Jericho!).
+
 ## 4.4.0
 Released 24 May 2024.
 
