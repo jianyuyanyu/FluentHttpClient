@@ -350,7 +350,7 @@ namespace Pathoschild.Http.Client
             // ignore if empty or already absolute
             if (string.IsNullOrWhiteSpace(resource))
                 return baseUrl;
-            if (Uri.TryCreate(resource, UriKind.Absolute, out Uri? absoluteUrl) && !absoluteUrl.IsFile)
+            if (Uri.TryCreate(resource, UriKind.Absolute, out Uri? absoluteUrl) && !absoluteUrl.IsFile) // on Linux/macOS, a value like "/tmp" is considered an absolute URI since it matches an absolute file path
                 return absoluteUrl;
 
             // can't combine if no base URL
