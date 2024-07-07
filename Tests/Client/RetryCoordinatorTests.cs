@@ -57,7 +57,7 @@ namespace Pathoschild.Http.Tests.Client
             {
                 await Task.Delay(TimeSpan.FromSeconds(10));
                 Assert.Fail("The request unexpectedly didn't time out.");
-                return null;
+                return null!; // failed above
             });
 
             IClient client = new FluentClient(new Uri("https://example.org"), new HttpClient(mockHandler))
@@ -93,7 +93,7 @@ namespace Pathoschild.Http.Tests.Client
             {
                 await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(false);
                 Assert.Fail("The request unexpectedly wasn't cancelled.");
-                return null;
+                return null!; // failed above
             });
 
             IClient client = new FluentClient(new Uri("http://example.org"), new HttpClient(mockHandler))
