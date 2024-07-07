@@ -350,7 +350,7 @@ namespace Pathoschild.Http.Client
             // ignore if empty or already absolute
             if (string.IsNullOrWhiteSpace(resource))
                 return baseUrl;
-            if (Uri.TryCreate(resource, UriKind.Absolute, out Uri? absoluteUrl) && (absoluteUrl.Scheme == "http" || absoluteUrl.Scheme == "https"))
+            if (Uri.TryCreate(resource, UriKind.Absolute, out Uri? absoluteUrl) && !absoluteUrl.IsFile)
                 return absoluteUrl;
 
             // can't combine if no base URL
